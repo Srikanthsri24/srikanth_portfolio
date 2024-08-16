@@ -428,3 +428,12 @@
 .testimonial-carousel .owl-dot.active::after {
     background: var(--primary);
 }
+
+.projects-img{
+    height:250px;
+    width:250px;
+    object-fit: cover;
+}
+li{
+    list-style: none;
+}
