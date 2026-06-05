@@ -1,15 +1,15 @@
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 mt-10">
-      <div className="mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+    <footer className="border-t border-border mt-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-10 grid sm:grid-cols-3 gap-6 items-center text-xs text-muted-foreground">
         <div>
-          <p className="font-display text-gradient text-lg font-bold tracking-widest">SRIKANTH</p>
-          <p className="mt-1">© VisionariesAI Labs Pvt Ltd. All Rights Reserved.</p>
+          <p className="font-display text-xl text-foreground">
+            <span className="serif-italic">Srikanth</span><span className="text-amber">.</span>
+          </p>
+          <p className="mt-2">© VisionariesAI Labs Pvt Ltd. All rights reserved.</p>
         </div>
-        <div className="text-center md:text-right">
-          <p>Designed By Srikanth</p>
-          <p className="text-xs">Distributed By: VisionariesAI Labs Pvt Ltd</p>
-        </div>
+        <p className="text-center hidden sm:block uppercase tracking-[0.3em]">Built with intent · 2026</p>
+        <p className="sm:text-right">Designed & engineered in India.</p>
       </div>
     </footer>
   );

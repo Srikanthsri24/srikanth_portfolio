@@ -6,38 +6,37 @@ export function Services() {
   return (
     <section id="services" className="section-pad">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
-          <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">What We Do</span>
-            <h2 className="mt-3 text-4xl sm:text-5xl font-bold">Our <span className="text-gradient">Services</span></h2>
+        <div className="grid lg:grid-cols-12 gap-8 items-end border-b border-border pb-10 mb-14">
+          <div className="lg:col-span-7">
+            <span className="eyebrow flex items-center gap-3"><span className="h-px w-10 bg-amber" /> What we do</span>
+            <h2 className="serif-display mt-6 text-4xl sm:text-5xl lg:text-6xl">
+              Services, <span className="serif-italic text-amber">end to end.</span>
+            </h2>
           </div>
-          <p className="max-w-md text-muted-foreground">
-            From design to deployment — premium services engineered for ambitious teams and founders.
+          <p className="lg:col-span-5 text-muted-foreground leading-relaxed">
+            From early concept to long-term operation — six focused practices, one team.
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden">
           {SERVICES.map((s, i) => (
-            <motion.div
+            <motion.a
+              href="#contact"
               key={s.title}
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ delay: i * 0.07 }}
-              className="group relative glass rounded-3xl p-7 hover:glow-cyan hover:-translate-y-1 transition-all overflow-hidden"
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+              className="bg-background p-8 group relative hover:bg-surface transition-colors block"
             >
-              <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-gradient-to-br from-secondary/30 to-accent/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative">
-                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center text-xl text-primary-foreground font-bold">
-                  {s.icon}
-                </div>
-                <h3 className="mt-5 text-xl font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                <div className="mt-6 flex items-center justify-between pt-5 border-t border-white/10">
-                  <span className="text-xs uppercase tracking-widest text-accent">Learn more</span>
-                  <a href="#contact" className="h-9 w-9 rounded-full glass flex items-center justify-center group-hover:bg-accent group-hover:text-primary-foreground transition-colors" aria-label="Inquire">
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
+              <div className="flex items-center justify-between">
+                <span className="serif-display text-2xl text-amber">0{i + 1}</span>
+                <ArrowUpRight size={18} className="text-muted-foreground group-hover:text-amber group-hover:-translate-y-1 group-hover:translate-x-1 transition-all" />
               </div>
-            </motion.div>
+              <h3 className="serif-display text-2xl mt-10 group-hover:text-amber transition-colors">{s.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+              <span className="mt-8 inline-block text-[10px] uppercase tracking-[0.3em] text-muted-foreground group-hover:text-amber transition-colors">
+                Inquire →
+              </span>
+            </motion.a>
           ))}
         </div>
       </div>
