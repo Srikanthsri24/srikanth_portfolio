@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye } from "lucide-react";
-import { PROJECTS, type Category } from "@/data/portfolio";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { PRODUCTS, type Category } from "@/data/portfolio";
 
-const FILTERS: Category[] = ["All", "WEB", "APP", "AI", "IoT", "UI/UX"];
+const FILTERS: Category[] = ["All", "AI", "EDU", "IoT", "WEB", "APP"];
 
 export function Projects() {
   const [filter, setFilter] = useState<Category>("All");
   const filtered = useMemo(
-    () => filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.category.includes(filter as any)),
+    () => (filter === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category.includes(filter as any))),
     [filter]
   );
 
@@ -17,8 +17,14 @@ export function Projects() {
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-10">
           <span className="text-xs uppercase tracking-[0.3em] text-accent">Portfolio</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">My <span className="text-gradient">Projects</span></h2>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">
+            Our <span className="text-gradient">Products</span>
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+            A growing suite of AI, IoT, and education products — built, deployed, and trusted in production.
+          </p>
         </div>
+
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           {FILTERS.map((f) => (
             <button
@@ -30,41 +36,66 @@ export function Projects() {
                   : "glass text-muted-foreground hover:text-foreground"
               }`}
             >
-              {f === "All" ? "All Projects" : f}
+              {f === "All" ? "All Products" : f}
             </button>
           ))}
         </div>
+
         <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((p) => (
               <motion.article
                 layout
-                key={p.title}
-                initial={{ opacity: 0, scale: 0.9 }}
+                key={p.id}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="group glass rounded-3xl overflow-hidden hover:-translate-y-1 transition-transform"
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="group glass rounded-3xl overflow-hidden flex flex-col hover:-translate-y-1 transition-transform"
               >
-                <div className={`relative aspect-[4/3] bg-gradient-to-br ${p.gradient} flex items-center justify-center overflow-hidden`}>
-                  <span className="font-display text-3xl font-bold text-white/90 px-6 text-center">{p.title}</span>
-                  <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                {/* Image header — replace `image` URL with your own asset later */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-80 mix-blend-multiply z-10`} />
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-20" />
+                  <div className="absolute top-3 left-3 z-30 flex flex-wrap gap-1">
                     {p.category.map((c) => (
-                      <span key={c} className="px-2 py-0.5 rounded-full bg-black/40 backdrop-blur text-[10px] uppercase tracking-wider text-white">{c}</span>
+                      <span key={c} className="px-2 py-0.5 rounded-full bg-black/50 backdrop-blur text-[10px] uppercase tracking-wider text-white">
+                        {c}
+                      </span>
                     ))}
                   </div>
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <a href="#" className="btn-primary text-sm" aria-label={`Preview ${p.title}`}>
-                      <Eye size={16} /> Preview
-                    </a>
+                  <span className="absolute top-3 right-3 z-30 px-2 py-0.5 rounded-full bg-accent/90 text-[10px] uppercase tracking-wider text-primary-foreground font-semibold">
+                    {p.status}
+                  </span>
+                  <div className="absolute bottom-3 left-4 right-4 z-30">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-white/80">{p.tag}</p>
+                    <h3 className="mt-1 text-lg font-display font-bold text-white leading-tight">{p.name}</h3>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold">{p.title}</h3>
-                  <dl className="mt-3 space-y-1 text-sm">
-                    <div className="flex gap-2"><dt className="text-muted-foreground w-20">Project</dt><dd>Web Application</dd></div>
-                    <div className="flex gap-2"><dt className="text-muted-foreground w-20">Client</dt><dd>{p.client}</dd></div>
-                    <div className="flex gap-2"><dt className="text-muted-foreground w-20">Stack</dt><dd className="text-accent">{p.lang}</dd></div>
-                  </dl>
+
+                <div className="p-6 flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{p.description}</p>
+
+                  <ul className="mt-4 grid grid-cols-1 gap-1.5">
+                    {p.features.slice(0, 4).map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-xs text-foreground/85">
+                        <CheckCircle2 size={14} className="text-accent shrink-0 mt-0.5" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">{p.clients}</span>
+                    <a href="#contact" className="h-8 w-8 rounded-full glass flex items-center justify-center hover:bg-accent hover:text-primary-foreground transition-colors" aria-label={`Inquire about ${p.name}`}>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </div>
                 </div>
               </motion.article>
             ))}
