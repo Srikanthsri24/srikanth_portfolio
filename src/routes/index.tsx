@@ -7,13 +7,13 @@ import { Stats } from "@/components/portfolio/Stats";
 import { SkillsExperience } from "@/components/portfolio/SkillsExperience";
 import { Services } from "@/components/portfolio/Services";
 import { Projects } from "@/components/portfolio/Projects";
-import { Team } from "@/components/portfolio/Team";
 import { Testimonials } from "@/components/portfolio/Testimonials";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { ScrollTop } from "@/components/portfolio/ScrollTop";
 import { Preloader } from "@/components/portfolio/Preloader";
 import { VideoModal } from "@/components/portfolio/VideoModal";
+// Team section removed by request.
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: "/" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" },
     ],
   }),
   component: Index,
@@ -48,7 +48,6 @@ function Index() {
         <SkillsExperience />
         <Services />
         <Projects />
-        <Team />
         <Testimonials />
         <Contact />
       </main>
