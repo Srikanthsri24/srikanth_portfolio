@@ -29,9 +29,9 @@ export function Navbar() {
   };
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "py-3" : "py-5"}`}>
-      <div className={`mx-auto max-w-7xl px-6 ${scrolled ? "glass rounded-full mx-4 md:mx-auto" : ""}`}>
-        <div className="flex items-center justify-between">
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "py-2 sm:py-3" : "py-4 sm:py-5"}`}>
+      <div className={`mx-auto max-w-7xl px-4 sm:px-6 ${scrolled ? "glass rounded-full max-w-[calc(100%-1rem)] sm:max-w-7xl" : ""}`}>
+        <div className="flex items-center justify-between gap-3">
           <button onClick={() => go("home")} className="font-display text-xl font-bold tracking-widest text-gradient">
             SRIKANTH
           </button>
