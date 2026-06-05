@@ -1,34 +1,34 @@
 import { motion } from "framer-motion";
+import { Cpu, Layers, Rocket, ShieldCheck } from "lucide-react";
 
-const stats = [
-  {
-    title: "Projects Completed",
-    value: "Numerous",
-    desc: "A wide range of successful projects, reflecting versatility and expertise — from complex AI solutions to comprehensive web applications, handled with the utmost professionalism."
-  },
-  {
-    title: "Our Expertise",
-    value: "Extensive",
-    desc: "Deep experience in full-stack development and AI. Commitment to innovation and excellence ensures high-quality, cutting-edge solutions tailored to client needs."
-  },
+const items = [
+  { Icon: Cpu,         t: "AI & ML",         d: "LLMs, vision, analytics in production." },
+  { Icon: Layers,      t: "Full Stack",      d: "Web, mobile, APIs, dashboards." },
+  { Icon: Rocket,      t: "IoT & Hardware",  d: "Sensors, edge devices, telemetry." },
+  { Icon: ShieldCheck, t: "Operations",      d: "Deploy, monitor, maintain at scale." },
 ];
 
 export function Stats() {
   return (
-    <section className="px-6 -mt-10 mb-10">
-      <div className="mx-auto max-w-7xl grid md:grid-cols-2 gap-6">
-        {stats.map((s, i) => (
-          <motion.div
-            key={s.title}
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-            className="glass rounded-3xl p-8 hover:-translate-y-1 transition-transform"
-          >
-            <p className="text-xs uppercase tracking-[0.3em] text-accent">{s.title}</p>
-            <p className="mt-3 text-5xl font-display font-bold text-gradient">{s.value}</p>
-            <p className="mt-4 text-muted-foreground leading-relaxed">{s.desc}</p>
-          </motion.div>
-        ))}
+    <section className="px-5 sm:px-8 -mt-2">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-sm overflow-hidden">
+          {items.map((it, i) => (
+            <motion.div
+              key={it.t}
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+              className="bg-background p-6 sm:p-8 group hover:bg-surface transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <it.Icon size={22} className="text-amber" />
+                <span className="serif-display text-sm text-muted-foreground">0{i + 1}</span>
+              </div>
+              <h3 className="serif-display text-2xl mt-6 group-hover:text-amber transition-colors">{it.t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{it.d}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

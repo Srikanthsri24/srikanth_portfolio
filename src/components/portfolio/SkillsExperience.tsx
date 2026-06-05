@@ -10,62 +10,63 @@ export function SkillsExperience() {
   return (
     <section id="skills" className="section-pad">
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl">
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">Skills & Experience</span>
-          <h2 className="mt-3 text-4xl sm:text-5xl font-bold">
-            Core <span className="text-gradient">competencies</span> built over years
-          </h2>
-          <p className="mt-4 text-muted-foreground">
-            A diverse skill set across AI, full-stack, IoT, and design — leading and delivering
-            complex projects from idea to production with precision.
+        <div className="grid lg:grid-cols-12 gap-8 items-end border-b border-border pb-10 mb-14">
+          <div className="lg:col-span-7">
+            <span className="eyebrow flex items-center gap-3"><span className="h-px w-10 bg-amber" /> Capabilities</span>
+            <h2 className="serif-display mt-6 text-4xl sm:text-5xl lg:text-6xl">
+              Built across <span className="serif-italic text-amber">disciplines.</span>
+            </h2>
+          </div>
+          <p className="lg:col-span-5 text-muted-foreground leading-relaxed">
+            Years of compounding craft — across AI, full-stack, IoT, and design — turned into a
+            reliable practice for shipping complex products.
           </p>
         </div>
 
-        <div className="mt-14 grid lg:grid-cols-2 gap-10">
-          {/* Skills */}
-          <div className="space-y-4">
-            {SKILLS.map((s, i) => (
-              <motion.div
-                key={s.name}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="glass rounded-2xl p-5"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-semibold">{s.name}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{s.desc}</p>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+          {/* Skills — editorial list */}
+          <div>
+            <p className="eyebrow mb-6">Skills</p>
+            <ul className="divide-y divide-border">
+              {SKILLS.map((s, i) => (
+                <motion.li
+                  key={s.name}
+                  initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                  className="py-5 group"
+                >
+                  <div className="flex items-baseline justify-between gap-4">
+                    <div className="flex items-baseline gap-4 min-w-0">
+                      <span className="serif-display text-sm text-muted-foreground">0{i + 1}</span>
+                      <div className="min-w-0">
+                        <p className="serif-display text-xl group-hover:text-amber transition-colors">{s.name}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{s.desc}</p>
+                      </div>
+                    </div>
+                    <span className="serif-italic text-amber text-lg shrink-0">{s.value}%</span>
                   </div>
-                  <span className="text-lg font-display font-bold text-gradient leading-none">
-                    {s.value}%
-                  </span>
-                </div>
-                <div className="mt-4 h-1.5 rounded-full bg-white/5 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${s.value}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: i * 0.05 }}
-                    className="h-full rounded-full bg-gradient-to-r from-secondary to-accent"
-                  />
-                </div>
-              </motion.div>
-            ))}
+                  <div className="mt-4 h-px bg-border overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }} whileInView={{ width: `${s.value}%` }}
+                      viewport={{ once: true }} transition={{ duration: 1.1, delay: i * 0.05 }}
+                      className="h-full bg-amber"
+                      style={{ height: "2px", marginTop: "-1px" }}
+                    />
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
           </div>
 
           {/* Experience / Achievements */}
           <div>
-            <div className="inline-flex glass rounded-full p-1 mb-6">
+            <div className="inline-flex border border-border rounded-full p-1 mb-8">
               {(["exp", "ach"] as const).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
                   className={`flex items-center gap-2 px-5 py-2 text-sm rounded-full transition-all ${
-                    tab === t
-                      ? "bg-gradient-to-r from-secondary to-accent text-primary-foreground font-semibold"
-                      : "text-muted-foreground hover:text-foreground"
+                    tab === t ? "bg-amber text-ink font-medium" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {t === "exp" ? <Briefcase size={14} /> : <Trophy size={14} />}
@@ -74,27 +75,21 @@ export function SkillsExperience() {
               ))}
             </div>
 
-            <div className="relative pl-6 border-l border-white/10 space-y-5">
+            <div className="space-y-px bg-border rounded-sm overflow-hidden">
               {data.map((item, i) => (
                 <motion.div
                   key={item.title + i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="relative glass rounded-2xl p-5"
+                  className="bg-background p-5 sm:p-6 group hover:bg-surface transition-colors"
                 >
-                  <span className="absolute -left-[33px] top-6 h-3.5 w-3.5 rounded-full bg-accent ring-4 ring-accent/20" />
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h4 className="font-semibold">{item.title}</h4>
-                    <span className="text-[10px] uppercase tracking-widest text-accent px-2 py-1 rounded-full bg-accent/10">
-                      {item.period}
-                    </span>
+                    <h4 className="serif-display text-xl group-hover:text-amber transition-colors">{item.title}</h4>
+                    <span className="text-[10px] uppercase tracking-[0.25em] text-amber">{item.period}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">{item.org}</p>
+                  <p className="text-sm text-muted-foreground mt-1.5">{item.org}</p>
                   {"desc" in item && (item as any).desc && (
-                    <p className="text-xs text-muted-foreground/80 mt-2 leading-relaxed">
-                      {(item as any).desc}
-                    </p>
+                    <p className="text-xs text-muted-foreground/80 mt-2 leading-relaxed">{(item as any).desc}</p>
                   )}
                 </motion.div>
               ))}
