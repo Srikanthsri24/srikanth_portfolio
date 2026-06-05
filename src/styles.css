@@ -101,6 +101,18 @@
   border: 1px solid oklch(1 0 0 / 0.08);
 }
 
+/* Legacy alias — many components still use `glass`; map to surface */
+@utility glass {
+  background: linear-gradient(180deg, oklch(0.15 0.006 60 / 0.85), oklch(0.11 0.006 60 / 0.85));
+  border: 1px solid oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@utility glow-cyan {
+  box-shadow: 0 0 36px -8px oklch(0.78 0.16 70 / 0.35);
+}
+
 @utility hairline {
   border-top: 1px solid oklch(1 0 0 / 0.08);
 }
