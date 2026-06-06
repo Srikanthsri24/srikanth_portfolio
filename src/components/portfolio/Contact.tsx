@@ -2,6 +2,12 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Linkedin, Github, Instagram, Facebook, Youtube, Send, CheckCircle2, ArrowUpRight } from "lucide-react";
 
+const EMAIL = "srikanth@visionariesai.com";
+const PHONE_DISPLAY = "+91 98480 00000";
+const PHONE_TEL = "+919848000000";
+const ADDRESS = "3-28, Dubbakavani Peta, Polaki, Srikakulam, Andhra Pradesh, India — 532429";
+const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(ADDRESS)}`;
+
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -10,13 +16,19 @@ export function Contact() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const err: Record<string, string> = {};
-    if (!fd.get("name")) err.name = "Required";
+    const name = String(fd.get("name") || "");
     const email = String(fd.get("email") || "");
+    const subject = String(fd.get("subject") || "");
+    const message = String(fd.get("message") || "");
+    if (!name) err.name = "Required";
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) err.email = "Valid email required";
-    if (!fd.get("subject")) err.subject = "Required";
-    if (!fd.get("message")) err.message = "Required";
+    if (!subject) err.subject = "Required";
+    if (!message) err.message = "Required";
     setErrors(err);
     if (Object.keys(err).length === 0) {
+      // Open user's mail client with prefilled content
+      const body = `Name: ${name}%0AEmail: ${email}%0A%0A${encodeURIComponent(message)}`;
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
       setSent(true);
       e.currentTarget.reset();
       setTimeout(() => setSent(false), 5000);
@@ -24,8 +36,17 @@ export function Contact() {
   };
 
   const socials = [
-    { Icon: Linkedin, label: "LinkedIn" }, { Icon: Github, label: "GitHub" },
-    { Icon: Instagram, label: "Instagram" }, { Icon: Facebook, label: "Facebook" }, { Icon: Youtube, label: "YouTube" },
+    { Icon: Linkedin,  label: "LinkedIn",  href: "https://linkedin.com/in/srikanthdubbaka" },
+    { Icon: Github,    label: "GitHub",    href: "https://github.com/" },
+    { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
+    { Icon: Facebook,  label: "Facebook",  href: "https://facebook.com/" },
+    { Icon: Youtube,   label: "YouTube",   href: "https://youtube.com/" },
+  ];
+
+  const infoItems = [
+    { Icon: MapPin, label: "Office",  val: ADDRESS, href: MAPS_URL, external: true },
+    { Icon: Phone,  label: "Call",    val: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
+    { Icon: Mail,   label: "Email",   val: EMAIL, href: `mailto:${EMAIL}` },
   ];
 
   return (
@@ -44,30 +65,33 @@ export function Contact() {
         </div>
 
         <div className="grid lg:grid-cols-12 gap-10">
-          {/* Left: contact info */}
+          {/* Left: contact info — fully clickable */}
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            className="lg:col-span-5 space-y-8"
+            className="lg:col-span-5 space-y-6"
           >
-            {[
-              { Icon: MapPin, label: "Office",  val: "3-28, Dubbakavani Peta, Polaki, Srikakulam, Andhra Pradesh, India — 532429" },
-              { Icon: Phone,  label: "Call",    val: "+91 984 *******" },
-              { Icon: Mail,   label: "Email",   val: "srikanth@visionariesai.com" },
-            ].map(({ Icon, label, val }) => (
-              <div key={label} className="border-b border-border pb-6">
+            {infoItems.map(({ Icon, label, val, href, external }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="block border-b border-border pb-6 group"
+              >
                 <div className="flex items-center gap-3">
                   <Icon size={14} className="text-amber" />
                   <p className="eyebrow">{label}</p>
+                  <ArrowUpRight size={12} className="text-muted-foreground group-hover:text-amber group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all ml-auto" />
                 </div>
-                <p className="mt-3 serif-display text-lg leading-snug">{val}</p>
-              </div>
+                <p className="mt-3 serif-display text-lg leading-snug group-hover:text-amber transition-colors break-words">{val}</p>
+              </a>
             ))}
 
             <div>
               <p className="eyebrow mb-4">Follow</p>
-              <div className="flex gap-2">
-                {socials.map(({ Icon, label }) => (
-                  <a key={label} href="#" aria-label={label}
+              <div className="flex flex-wrap gap-2">
+                {socials.map(({ Icon, label, href }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                      className="h-10 w-10 rounded-full border border-border flex items-center justify-center hover:bg-amber hover:text-ink hover:border-amber transition-colors">
                     <Icon size={14} />
                   </a>
@@ -113,8 +137,11 @@ export function Contact() {
               {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
             </div>
             <button type="submit" className="btn-primary w-full justify-center hover:[filter:brightness(1.08)] hover:[transform:translateY(-1px)]">
-              {sent ? <><CheckCircle2 size={18} /> Message Sent</> : <><Send size={16} /> Send Message <ArrowUpRight size={16} /></>}
+              {sent ? <><CheckCircle2 size={18} /> Opening your email…</> : <><Send size={16} /> Send Message <ArrowUpRight size={16} /></>}
             </button>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground text-center">
+              Submitting opens your email client to {EMAIL}
+            </p>
           </motion.form>
         </div>
       </div>

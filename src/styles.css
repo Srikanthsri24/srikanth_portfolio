@@ -6,23 +6,28 @@
 
 /* ──────────────────────────────────────────────────────────────
    🎨  THEME — EDIT THIS BLOCK ONLY
-   Change colors, fonts, radius. Everything else cascades.
    ────────────────────────────────────────────────────────────── */
 :root {
-  /* Brand colors (OKLCH) */
-  --ink:    oklch(0.08 0.005 60);   /* near-black background */
-  --paper:  oklch(0.97 0.005 80);   /* warm off-white text  */
-  --amber:  oklch(0.78 0.16 70);    /* accent (change me!)  */
-  --muted-fg: oklch(0.68 0.01 70);  /* secondary text       */
-  --surface:  oklch(0.13 0.006 60); /* card surface         */
-  --line:     oklch(1 0 0 / 0.08);  /* hairlines & borders  */
+  /* LIGHT (default) */
+  --ink:       oklch(0.97 0.008 80);   /* page bg (warm paper) */
+  --paper:     oklch(0.18 0.012 60);   /* text (rich ink)      */
+  --amber:     oklch(0.65 0.16 55);    /* accent               */
+  --muted-fg:  oklch(0.45 0.015 60);
+  --surface:   oklch(0.99 0.005 80);
+  --line:      oklch(0.18 0.012 60 / 0.12);
 
-  /* Typography */
   --font-display: "Fraunces", "Times New Roman", serif;
   --font-sans:    "Inter", system-ui, sans-serif;
-
-  /* Shape */
   --radius: 0.5rem;
+}
+
+.dark {
+  --ink:       oklch(0.08 0.005 60);
+  --paper:     oklch(0.97 0.005 80);
+  --amber:     oklch(0.78 0.16 70);
+  --muted-fg:  oklch(0.68 0.01 70);
+  --surface:   oklch(0.13 0.006 60);
+  --line:      oklch(1 0 0 / 0.08);
 }
 /* ────────────────────────────────────────────────────────────── */
 
@@ -52,7 +57,7 @@
   --color-destructive: oklch(0.62 0.22 27);
   --color-destructive-foreground: var(--paper);
   --color-border: var(--line);
-  --color-input: oklch(1 0 0 / 0.06);
+  --color-input: var(--line);
   --color-ring: var(--amber);
   --color-ink: var(--ink);
   --color-amber: var(--amber);
@@ -72,8 +77,8 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     background-image:
-      radial-gradient(1200px 600px at 80% -10%, oklch(0.78 0.16 70 / 0.10), transparent 60%),
-      radial-gradient(900px 500px at -10% 100%, oklch(0.78 0.16 70 / 0.06), transparent 60%);
+      radial-gradient(1200px 600px at 80% -10%, color-mix(in oklab, var(--amber) 18%, transparent), transparent 60%),
+      radial-gradient(900px 500px at -10% 100%, color-mix(in oklab, var(--amber) 10%, transparent), transparent 60%);
     background-attachment: fixed;
   }
   h1, h2, h3, h4 {
@@ -81,12 +86,17 @@
     font-weight: 400;
     letter-spacing: -0.025em;
   }
+
+  /* Hide scrollbars globally but keep scrolling */
+  html, body { scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar,
+  *::-webkit-scrollbar { display: none; width: 0; height: 0; }
 }
 
 /* ── Editorial utilities ── */
 @utility surface         { background: var(--surface); border: 1px solid var(--line); }
-@utility surface-elevated{ background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 100%, white 4%), var(--surface)); border: 1px solid var(--line); }
-@utility glass           { background: color-mix(in oklab, var(--surface) 85%, transparent); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+@utility surface-elevated{ background: linear-gradient(180deg, color-mix(in oklab, var(--surface) 100%, var(--paper) 3%), var(--surface)); border: 1px solid var(--line); }
+@utility glass           { background: color-mix(in oklab, var(--surface) 75%, transparent); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 @utility glow-cyan       { box-shadow: 0 0 36px -8px color-mix(in oklab, var(--amber) 35%, transparent); }
 @utility hairline        { border-top: 1px solid var(--line); }
 
@@ -112,25 +122,25 @@
   padding: 0.9rem 1.6rem; border-radius: 9999px;
   display: inline-flex; align-items: center; gap: 0.5rem;
   transition: all 0.25s ease;
+  cursor: pointer;
 }
-@utility btn-primary-hover { filter: brightness(1.08); transform: translateY(-1px); }
 
 @utility btn-ghost {
-  border: 1px solid color-mix(in oklab, var(--paper) 18%, transparent);
+  border: 1px solid color-mix(in oklab, var(--paper) 25%, transparent);
   color: var(--paper); background: transparent;
   padding: 0.9rem 1.6rem; border-radius: 9999px;
   display: inline-flex; align-items: center; gap: 0.5rem;
   transition: all 0.25s ease; font-size: 0.875rem;
+  cursor: pointer;
 }
 
-@utility section-pad   { padding: 5rem 1.25rem; }
+@utility section-pad   { padding: 4rem 1.25rem; }
 @media (min-width: 640px)  { .section-pad { padding: 6rem 2rem; } }
 @media (min-width: 1024px) { .section-pad { padding: 8rem 2.5rem; } }
 
 @keyframes float-y { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-10px);} }
 @keyframes blink   { 50% { opacity: 0; } }
 @keyframes marquee { 0% { transform: translateX(0);} 100% { transform: translateX(-50%);} }
-@keyframes marquee-slow { 0% { transform: translateX(0);} 100% { transform: translateX(-50%);} }
 @keyframes shine   { 0% { background-position: -200% 0;} 100% { background-position: 200% 0;} }
 
 .animate-float        { animation: float-y 6s ease-in-out infinite; }
