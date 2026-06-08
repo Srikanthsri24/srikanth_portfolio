@@ -83,23 +83,59 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
           <div className="relative">
             <div className="absolute inset-0 border border-amber/50 translate-x-3 translate-y-3 rounded-sm pointer-events-none" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm surface-elevated">
-              <img
-                src={heroAsset.url}
-                alt="Srikanth Dubbaka, CEO of VisionariesAI Labs"
-                className="absolute inset-0 h-full w-full object-cover object-top"
-                loading="eager"
-              />
-              {/* gentle bottom gradient (does not cover face) */}
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={SLIDES[active].url}
+                  src={SLIDES[active].url}
+                  alt={`Srikanth Dubbaka — ${SLIDES[active].label}`}
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  initial={{ opacity: 0, scale: 1.06 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                  loading="eager"
+                />
+              </AnimatePresence>
 
-              <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-paper/80 mix-blend-difference">N° 01</span>
-              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-paper/80 mix-blend-difference">2026</span>
+              {/* gradient */}
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent pointer-events-none" />
+
+              <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">
+                N° {String(active + 1).padStart(2, "0")}
+              </span>
+              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">2026</span>
 
               <div className="absolute bottom-4 left-4 right-4 text-paper">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">Founder & CEO</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">{SLIDES[active].caption}</p>
                 <p className="serif-italic text-3xl leading-none mt-2">Srikanth</p>
                 <p className="text-xs opacity-80 mt-1">VisionariesAI Labs</p>
               </div>
+
+              {/* progress dots */}
+              <div className="absolute bottom-4 right-4 flex gap-1.5">
+                {SLIDES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActive(i)}
+                    aria-label={`Show slide ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${i === active ? "w-6 bg-amber" : "w-1.5 bg-paper/40 hover:bg-paper/70"}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* thumbnails */}
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {SLIDES.map((s, i) => (
+                <button
+                  key={s.url}
+                  onClick={() => setActive(i)}
+                  className={`relative aspect-square overflow-hidden rounded-sm border transition-all ${i === active ? "border-amber opacity-100" : "border-border opacity-60 hover:opacity-100"}`}
+                  aria-label={s.label}
+                >
+                  <img src={s.url} alt={s.label} className="h-full w-full object-cover object-top" loading="lazy" />
+                </button>
+              ))}
             </div>
           </div>
         </motion.div>
