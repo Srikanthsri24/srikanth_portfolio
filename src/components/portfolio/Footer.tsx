@@ -1,44 +1,99 @@
-import { Mail, Phone, Linkedin, Github, Instagram, ArrowUp } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Instagram, ArrowUp, ArrowUpRight, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 import { NAV } from "@/data/portfolio";
 
+const SOCIALS = [
+  { Icon: Linkedin, href: "https://linkedin.com/in/srikanthdubbaka", label: "LinkedIn" },
+  { Icon: Github, href: "https://github.com/", label: "GitHub" },
+  { Icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
+];
+
 export function Footer() {
-  const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const go = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border mt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-12 grid md:grid-cols-12 gap-10">
+    <footer className="relative mt-24 overflow-hidden border-t border-border">
+      {/* Ambient amber glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+        style={{
+          background:
+            "radial-gradient(800px 320px at 80% 110%, color-mix(in oklab, var(--amber) 18%, transparent), transparent 60%), radial-gradient(600px 280px at 10% 110%, color-mix(in oklab, var(--amber) 8%, transparent), transparent 60%)",
+        }}
+      />
+
+      {/* CTA strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mx-auto max-w-7xl px-5 sm:px-8 pt-16 sm:pt-20"
+      >
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-12 border-b border-border">
+          <div>
+            <p className="eyebrow mb-3">Let's build something</p>
+            <h2 className="serif-display text-4xl sm:text-5xl md:text-6xl leading-[0.95]">
+              Have an idea?<br />
+              <span className="serif-italic text-amber">Let's make it real.</span>
+            </h2>
+          </div>
+          <button
+            onClick={() => go("contact")}
+            className="btn-primary group self-start md:self-end hover:[filter:brightness(1.08)] hover:gap-3 transition-all"
+          >
+            Start a project
+            <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Main grid */}
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 grid grid-cols-2 md:grid-cols-12 gap-10">
         {/* Brand */}
-        <div className="md:col-span-5">
-          <button onClick={toTop} className="font-display text-3xl text-left">
-            <span className="serif-italic">Srikanth</span><span className="text-amber">.</span>
+        <div className="col-span-2 md:col-span-5">
+          <button onClick={toTop} className="font-display text-3xl text-left group">
+            <span className="serif-italic">Srikanth</span>
+            <span className="text-amber inline-block transition-transform group-hover:translate-y-[-2px]">.</span>
           </button>
           <p className="mt-4 text-sm text-muted-foreground max-w-md leading-relaxed">
             Founder &amp; CEO of <span className="text-foreground">VisionariesAI Labs</span>.
             Building AI, IoT and education products with craft, care and conviction.
           </p>
-          <div className="mt-5 flex gap-2">
-            {[
-              { Icon: Linkedin, href: "https://linkedin.com/in/srikanthdubbaka", label: "LinkedIn" },
-              { Icon: Github, href: "https://github.com/", label: "GitHub" },
-              { Icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
-            ].map(({ Icon, href, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                 className="h-9 w-9 rounded-full border border-border flex items-center justify-center hover:bg-amber hover:text-ink hover:border-amber transition-colors">
-                <Icon size={14} />
+          <div className="mt-6 flex items-center gap-2">
+            {SOCIALS.map(({ Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-ink hover:bg-amber hover:border-amber hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <Icon size={15} />
               </a>
             ))}
           </div>
         </div>
 
         {/* Sitemap */}
-        <div className="md:col-span-3">
+        <div className="col-span-1 md:col-span-3">
           <p className="eyebrow mb-4">Explore</p>
-          <ul className="space-y-2">
-            {NAV.map(n => (
+          <ul className="space-y-2.5">
+            {NAV.map((n) => (
               <li key={n.id}>
-                <button onClick={() => go(n.id)} className="text-sm text-muted-foreground hover:text-amber transition-colors">
-                  {n.label}
+                <button
+                  onClick={() => go(n.id)}
+                  className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-amber transition-colors"
+                >
+                  <span className="relative">
+                    {n.label}
+                    <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-amber transition-all duration-300 group-hover:w-full" />
+                  </span>
                 </button>
               </li>
             ))}
@@ -46,25 +101,49 @@ export function Footer() {
         </div>
 
         {/* Contact */}
-        <div className="md:col-span-4">
+        <div className="col-span-2 md:col-span-4">
           <p className="eyebrow mb-4">Get in touch</p>
-          <a href="mailto:srikanth@visionariesai.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
-            <Mail size={14} className="text-amber" /> srikanth@visionariesai.com
+          <a
+            href="mailto:srikanth@visionariesai.com"
+            className="group flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors"
+          >
+            <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber group-hover:bg-amber group-hover:text-ink group-hover:border-amber transition-colors">
+              <Mail size={13} />
+            </span>
+            <span className="truncate">srikanth@visionariesai.com</span>
           </a>
-          <a href="tel:+919848000000" className="mt-3 flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
-            <Phone size={14} className="text-amber" /> +91 98480 00000
+          <a
+            href="tel:+919848000000"
+            className="mt-3 group flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors"
+          >
+            <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber group-hover:bg-amber group-hover:text-ink group-hover:border-amber transition-colors">
+              <Phone size={13} />
+            </span>
+            <span>+91 98480 00000</span>
           </a>
-          <button onClick={() => go("contact")} className="mt-5 btn-primary text-xs !py-2 !px-4">
-            Start a project
-          </button>
+          <div className="mt-3 flex items-center gap-3 text-sm text-muted-foreground">
+            <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber">
+              <MapPin size={13} />
+            </span>
+            <span>Hyderabad, India</span>
+          </div>
         </div>
       </div>
 
+      {/* Bottom bar */}
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-          <p>© {new Date().getFullYear()} Srikanth Dubbaka · VisionariesAI Labs</p>
-          <button onClick={toTop} className="flex items-center gap-2 hover:text-amber transition-colors">
-            Back to top <ArrowUp size={12} />
+          <p className="text-center sm:text-left">
+            © {year} Srikanth Dubbaka · Crafted with intent
+          </p>
+          <button
+            onClick={toTop}
+            className="group flex items-center gap-2 hover:text-amber transition-colors"
+          >
+            Back to top
+            <span className="h-7 w-7 rounded-full border border-border flex items-center justify-center group-hover:bg-amber group-hover:text-ink group-hover:border-amber group-hover:-translate-y-0.5 transition-all">
+              <ArrowUp size={11} />
+            </span>
           </button>
         </div>
       </div>
