@@ -124,19 +124,6 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
               </div>
             </div>
 
-            {/* thumbnails */}
-            <div className="mt-4 grid grid-cols-3 gap-2">
-              {SLIDES.map((s, i) => (
-                <button
-                  key={s.url}
-                  onClick={() => setActive(i)}
-                  className={`relative aspect-square overflow-hidden rounded-sm border transition-all ${i === active ? "border-amber opacity-100" : "border-border opacity-60 hover:opacity-100"}`}
-                  aria-label={s.label}
-                >
-                  <img src={s.url} alt={s.label} className="h-full w-full object-cover object-top" loading="lazy" />
-                </button>
-              ))}
-            </div>
           </div>
         </motion.div>
       </div>
