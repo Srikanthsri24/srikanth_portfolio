@@ -1,18 +1,21 @@
-import { Mail, Phone, ArrowUpRight, Linkedin, Github, Instagram } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Instagram, ArrowUp } from "lucide-react";
 import { NAV } from "@/data/portfolio";
 
 export function Footer() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <footer className="border-t border-border mt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-14 grid md:grid-cols-12 gap-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-12 grid md:grid-cols-12 gap-10">
+        {/* Brand */}
         <div className="md:col-span-5">
-          <p className="font-display text-3xl">
+          <button onClick={toTop} className="font-display text-3xl text-left">
             <span className="serif-italic">Srikanth</span><span className="text-amber">.</span>
-          </p>
+          </button>
           <p className="mt-4 text-sm text-muted-foreground max-w-md leading-relaxed">
-            Founder & CEO of <span className="text-foreground">VisionariesAI Labs</span>. Designing and shipping
-            AI, IoT, and education products from India to the world — with craft, care, and conviction.
+            Founder &amp; CEO of <span className="text-foreground">VisionariesAI Labs</span>.
+            Building AI, IoT and education products with craft, care and conviction.
           </p>
           <div className="mt-5 flex gap-2">
             {[
@@ -28,6 +31,7 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Sitemap */}
         <div className="md:col-span-3">
           <p className="eyebrow mb-4">Explore</p>
           <ul className="space-y-2">
@@ -41,26 +45,27 @@ export function Footer() {
           </ul>
         </div>
 
+        {/* Contact */}
         <div className="md:col-span-4">
           <p className="eyebrow mb-4">Get in touch</p>
-          <a href="mailto:srikanth@visionariesai.com" className="group flex items-start gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
-            <Mail size={14} className="mt-0.5 text-amber" /> srikanth@visionariesai.com
-            <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <a href="mailto:srikanth@visionariesai.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
+            <Mail size={14} className="text-amber" /> srikanth@visionariesai.com
           </a>
-          <a href="tel:+919848000000" className="mt-3 group flex items-start gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
-            <Phone size={14} className="mt-0.5 text-amber" /> +91 98480 00000
-            <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <a href="tel:+919848000000" className="mt-3 flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
+            <Phone size={14} className="text-amber" /> +91 98480 00000
           </a>
-          <a href="https://srikanthsri.com" target="_blank" rel="noopener noreferrer" className="mt-3 group flex items-start gap-3 text-sm text-muted-foreground hover:text-amber transition-colors">
-            <span className="mt-0.5 text-amber">↗</span> srikanthsri.com
-          </a>
+          <button onClick={() => go("contact")} className="mt-5 btn-primary text-xs !py-2 !px-4">
+            Start a project
+          </button>
         </div>
       </div>
 
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-          <p>© {new Date().getFullYear()} VisionariesAI Labs Pvt Ltd · All rights reserved</p>
-          <p>Designed & engineered in India · Built with intent</p>
+          <p>© {new Date().getFullYear()} Srikanth Dubbaka · VisionariesAI Labs</p>
+          <button onClick={toTop} className="flex items-center gap-2 hover:text-amber transition-colors">
+            Back to top <ArrowUp size={12} />
+          </button>
         </div>
       </div>
     </footer>
