@@ -15,6 +15,11 @@ const SLIDES = [
 const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge", "Design Systems"];
 
 export function Hero({ onPlay }: { onPlay: () => void }) {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActive((i) => (i + 1) % SLIDES.length), 3500);
+    return () => clearInterval(t);
+  }, []);
   return (
     <section id="home" className="relative pt-24 sm:pt-28 pb-12 overflow-hidden">
       {/* Editorial masthead bar */}
