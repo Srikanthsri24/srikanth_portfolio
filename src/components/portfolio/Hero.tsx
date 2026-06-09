@@ -4,12 +4,14 @@ import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
 import hero1 from "@/assets/hero-1.asset.json";
 import hero2 from "@/assets/hero-2.asset.json";
 import hero3 from "@/assets/hero-3.asset.json";
+import hero4 from "@/assets/hero-4.asset.json";
 import { ROLES } from "@/data/portfolio";
 
 const SLIDES = [
   { url: hero1.url, label: "The Reader", caption: "Always learning" },
   { url: hero2.url, label: "At the Helm", caption: "VisionariesAI Labs · CEO" },
   { url: hero3.url, label: "The Strategist", caption: "Ideas into products" },
+  { url: hero4.url, label: "The Scholar", caption: "Knowledge in practice" },
 ];
 
 const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge", "Design Systems"];
