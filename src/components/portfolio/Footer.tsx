@@ -125,7 +125,7 @@ export function Footer() {
             <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber">
               <MapPin size={13} />
             </span>
-            <span>Hyderabad, India</span>
+            <span>Visakhapatnam, Andhra Pradesh, India</span>
           </div>
         </div>
       </div>
