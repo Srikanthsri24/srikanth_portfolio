@@ -29,7 +29,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
         <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground pb-5 border-b border-border">
           <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse" /> Available for select projects</span>
           <span className="hidden md:inline">VisionariesAI Labs · Est. 2020</span>
-          <span>India / Worldwide</span>
+          <span>Visakhapatnam, Andhra Pradesh, India</span>
         </div>
       </div>
 
