@@ -4,12 +4,14 @@ import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
 import hero1 from "@/assets/hero-1.asset.json";
 import hero2 from "@/assets/hero-2.asset.json";
 import hero3 from "@/assets/hero-3.asset.json";
+import hero4 from "@/assets/hero-4.asset.json";
 import { ROLES } from "@/data/portfolio";
 
 const SLIDES = [
   { url: hero1.url, label: "The Reader", caption: "Always learning" },
   { url: hero2.url, label: "At the Helm", caption: "VisionariesAI Labs · CEO" },
   { url: hero3.url, label: "The Strategist", caption: "Ideas into products" },
+  { url: hero4.url, label: "The Scholar", caption: "Knowledge in practice" },
 ];
 
 const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge", "Design Systems"];
@@ -27,7 +29,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
         <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground pb-5 border-b border-border">
           <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse" /> Available for select projects</span>
           <span className="hidden md:inline">VisionariesAI Labs · Est. 2020</span>
-          <span>India / Worldwide</span>
+          <span>Visakhapatnam, Andhra Pradesh, India</span>
         </div>
       </div>
 
