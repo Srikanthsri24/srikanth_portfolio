@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import intro from "@/assets/hero-intro.asset.json";
 
 export function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
@@ -21,13 +22,13 @@ export function VideoModal({ open, onClose }: { open: boolean; onClose: () => vo
                 <X size={18} />
               </button>
             </div>
-            <div className="aspect-video rounded-xl overflow-hidden bg-black/50 flex items-center justify-center border border-white/10">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Introductory Video"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
+            <div className="aspect-[4/5] sm:aspect-video rounded-xl overflow-hidden bg-black/50 flex items-center justify-center border border-white/10">
+              <video
+                className="w-full h-full object-cover"
+                src={intro.url}
+                controls
+                autoPlay
+                playsInline
               />
             </div>
           </motion.div>
