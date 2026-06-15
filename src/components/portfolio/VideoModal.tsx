@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import intro from "@/assets/hero-intro.asset.json";
 
 export function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
