@@ -1,34 +1,39 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
-import hero1 from "@/assets/hero-1.asset.json";
-import hero2 from "@/assets/hero-2.asset.json";
-import hero3 from "@/assets/hero-3.asset.json";
-import hero4 from "@/assets/hero-4.asset.json";
+import portrait from "@/assets/hero-portrait.asset.json";
+import intro from "@/assets/hero-intro.asset.json";
 import { ROLES } from "@/data/portfolio";
 
-const SLIDES = [
-  { url: hero1.url, label: "The Reader", caption: "Always learning" },
-  { url: hero2.url, label: "At the Helm", caption: "VisionariesAI Labs · CEO" },
-  { url: hero3.url, label: "The Strategist", caption: "Ideas into products" },
-  { url: hero4.url, label: "The Scholar", caption: "Knowledge in practice" },
+type Slide =
+  | { kind: "image"; url: string; label: string; caption: string }
+  | { kind: "video"; url: string; label: string; caption: string };
+
+const SLIDES: Slide[] = [
+  { kind: "image", url: portrait.url, label: "The Scholar", caption: "Knowledge in practice" },
+  { kind: "video", url: intro.url, label: "The Vision", caption: "Innovation in motion · VisionariesAI" },
 ];
 
 const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge", "Design Systems"];
+const COMPANIES = ["VisionariesAI Labs", "Visionicx", "NEXT-GEN"];
 
 export function Hero({ onPlay }: { onPlay: () => void }) {
   const [active, setActive] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
   useEffect(() => {
-    const t = setInterval(() => setActive((i) => (i + 1) % SLIDES.length), 3500);
-    return () => clearInterval(t);
-  }, []);
+    if (SLIDES[active].kind === "video") return; // wait for video to end
+    const t = setTimeout(() => setActive((i) => (i + 1) % SLIDES.length), 4500);
+    return () => clearTimeout(t);
+  }, [active]);
+
   return (
     <section id="home" className="relative pt-24 sm:pt-28 pb-12 overflow-hidden">
       {/* Editorial masthead bar */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground pb-5 border-b border-border">
           <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse" /> Available for select projects</span>
-          <span className="hidden md:inline">VisionariesAI Labs · Est. 2020</span>
+          <span className="hidden md:inline">VisionariesAI Labs · Visionicx · NEXT-GEN</span>
           <span>Visakhapatnam, Andhra Pradesh, India</span>
         </div>
       </div>
@@ -45,11 +50,21 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
             <span className="h-px w-10 bg-amber" /> Founder · Chief Executive Officer
           </span>
 
-          <h1 className="serif-display mt-5 text-5xl sm:text-7xl lg:text-[7rem] leading-[0.9]">
+          <h1 className="serif-display mt-5 text-6xl sm:text-8xl lg:text-[9rem] xl:text-[10rem] leading-[0.88] tracking-tight">
             Srikanth
             <br />
             <span className="serif-italic text-amber">Dubbaka.</span>
           </h1>
+
+          {/* Companies */}
+          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-muted-foreground">
+            {COMPANIES.map((c, i) => (
+              <span key={c} className="flex items-center gap-4">
+                <span className="text-foreground/80">{c}</span>
+                {i < COMPANIES.length - 1 && <span className="text-amber">✦</span>}
+              </span>
+            ))}
+          </div>
 
           <p className="mt-7 max-w-2xl text-base sm:text-lg text-foreground/85 leading-relaxed">
             I lead <span className="font-medium">VisionariesAI Labs</span> — a product
@@ -76,7 +91,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
           </div>
         </motion.div>
 
-        {/* RIGHT: portrait card — image fully visible */}
+        {/* RIGHT: portrait / video card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
@@ -86,17 +101,34 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
             <div className="absolute inset-0 border border-amber/50 translate-x-3 translate-y-3 rounded-sm pointer-events-none" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm surface-elevated">
               <AnimatePresence mode="wait">
-                <motion.img
-                  key={SLIDES[active].url}
-                  src={SLIDES[active].url}
-                  alt={`Srikanth Dubbaka — ${SLIDES[active].label}`}
-                  className="absolute inset-0 h-full w-full object-cover object-top"
-                  initial={{ opacity: 0, scale: 1.06 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                  loading="eager"
-                />
+                {SLIDES[active].kind === "image" ? (
+                  <motion.img
+                    key={SLIDES[active].url}
+                    src={SLIDES[active].url}
+                    alt={`Srikanth Dubbaka — ${SLIDES[active].label}`}
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                    initial={{ opacity: 0, scale: 1.06 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                    loading="eager"
+                  />
+                ) : (
+                  <motion.video
+                    key={SLIDES[active].url}
+                    ref={videoRef}
+                    src={SLIDES[active].url}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    playsInline
+                    onEnded={() => setActive((i) => (i + 1) % SLIDES.length)}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                )}
               </AnimatePresence>
 
               {/* gradient */}
@@ -125,7 +157,6 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
                 ))}
               </div>
             </div>
-
           </div>
         </motion.div>
       </div>

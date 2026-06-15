@@ -1,11 +1,12 @@
-import { Mail, Phone, Linkedin, Github, Instagram, ArrowUp, ArrowUpRight, MapPin } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Instagram, Youtube, ArrowUp, ArrowUpRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { NAV } from "@/data/portfolio";
 
 const SOCIALS = [
   { Icon: Linkedin, href: "https://linkedin.com/in/srikanthdubbaka", label: "LinkedIn" },
-  { Icon: Github, href: "https://github.com/", label: "GitHub" },
-  { Icon: Instagram, href: "https://instagram.com/", label: "Instagram" },
+  { Icon: Instagram, href: "https://www.instagram.com/visionariesai/", label: "Instagram" },
+  { Icon: Github, href: "https://github.com/srikanthdubbaka", label: "GitHub" },
+  { Icon: Youtube, href: "https://www.youtube.com/@visionariesai", label: "YouTube" },
 ];
 
 export function Footer() {
@@ -64,7 +65,7 @@ export function Footer() {
             Founder &amp; CEO of <span className="text-foreground">VisionariesAI Labs</span>.
             Building AI, IoT and education products with craft, care and conviction.
           </p>
-          <div className="mt-6 flex items-center gap-2">
+          <div className="mt-6 flex items-center gap-3">
             {SOCIALS.map(({ Icon, href, label }) => (
               <a
                 key={label}
@@ -72,9 +73,9 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-ink hover:bg-amber hover:border-amber hover:-translate-y-0.5 transition-all duration-300"
+                className="h-12 w-12 sm:h-14 sm:w-14 rounded-full border border-border flex items-center justify-center text-foreground/80 hover:text-ink hover:bg-amber hover:border-amber hover:-translate-y-0.5 hover:scale-110 hover:shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--amber)_60%,transparent)] transition-all duration-300"
               >
-                <Icon size={15} />
+                <Icon size={22} strokeWidth={1.8} />
               </a>
             ))}
           </div>
@@ -113,13 +114,22 @@ export function Footer() {
             <span className="truncate">srikanth@visionariesai.com</span>
           </a>
           <a
-            href="tel:+919848000000"
+            href="tel:+919849072243"
             className="mt-3 group flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors"
           >
             <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber group-hover:bg-amber group-hover:text-ink group-hover:border-amber transition-colors">
               <Phone size={13} />
             </span>
-            <span>+91 98480 00000</span>
+            <span>+91 98490 72243</span>
+          </a>
+          <a
+            href="tel:+919849042243"
+            className="mt-3 group flex items-center gap-3 text-sm text-muted-foreground hover:text-amber transition-colors"
+          >
+            <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber group-hover:bg-amber group-hover:text-ink group-hover:border-amber transition-colors">
+              <Phone size={13} />
+            </span>
+            <span>+91 98490 42243</span>
           </a>
           <div className="mt-3 flex items-center gap-3 text-sm text-muted-foreground">
             <span className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-amber">

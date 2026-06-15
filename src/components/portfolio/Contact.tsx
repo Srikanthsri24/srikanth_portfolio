@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Linkedin, Github, Instagram, Facebook, Youtube, Send, CheckCircle2, ArrowUpRight } from "lucide-react";
 
 const EMAIL = "srikanth@visionariesai.com";
-const PHONE_DISPLAY = "+91 98480 00000";
-const PHONE_TEL = "+919848000000";
-const ADDRESS = "3-28, Dubbakavani Peta, Polaki, Srikakulam, Andhra Pradesh, India — 532429";
+const PHONE_1_DISPLAY = "+91 98490 72243";
+const PHONE_1_TEL = "+919849072243";
+const PHONE_2_DISPLAY = "+91 98490 42243";
+const PHONE_2_TEL = "+919849042243";
+const ADDRESS = "Visakhapatnam, Andhra Pradesh, India";
 const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(ADDRESS)}`;
 
 export function Contact() {
@@ -37,16 +39,17 @@ export function Contact() {
 
   const socials = [
     { Icon: Linkedin,  label: "LinkedIn",  href: "https://linkedin.com/in/srikanthdubbaka" },
-    { Icon: Github,    label: "GitHub",    href: "https://github.com/" },
-    { Icon: Instagram, label: "Instagram", href: "https://instagram.com/" },
-    { Icon: Facebook,  label: "Facebook",  href: "https://facebook.com/" },
-    { Icon: Youtube,   label: "YouTube",   href: "https://youtube.com/" },
+    { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/visionariesai/" },
+    { Icon: Github,    label: "GitHub",    href: "https://github.com/srikanthdubbaka" },
+    { Icon: Youtube,   label: "YouTube",   href: "https://www.youtube.com/@visionariesai" },
+    { Icon: Facebook,  label: "Facebook",  href: "https://www.facebook.com/visionariesai" },
   ];
 
   const infoItems = [
-    { Icon: MapPin, label: "Office",  val: ADDRESS, href: MAPS_URL, external: true },
-    { Icon: Phone,  label: "Call",    val: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
-    { Icon: Mail,   label: "Email",   val: EMAIL, href: `mailto:${EMAIL}` },
+    { Icon: MapPin, label: "Office",   val: ADDRESS, href: MAPS_URL, external: true },
+    { Icon: Phone,  label: "Office 1", val: PHONE_1_DISPLAY, href: `tel:${PHONE_1_TEL}` },
+    { Icon: Phone,  label: "Office 2", val: PHONE_2_DISPLAY, href: `tel:${PHONE_2_TEL}` },
+    { Icon: Mail,   label: "Email",    val: EMAIL, href: `mailto:${EMAIL}` },
   ];
 
   return (
@@ -89,11 +92,11 @@ export function Contact() {
 
             <div>
               <p className="eyebrow mb-4">Follow</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3">
                 {socials.map(({ Icon, label, href }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                     className="h-10 w-10 rounded-full border border-border flex items-center justify-center hover:bg-amber hover:text-ink hover:border-amber transition-colors">
-                    <Icon size={14} />
+                     className="h-12 w-12 sm:h-14 sm:w-14 rounded-full border border-border flex items-center justify-center text-foreground/80 hover:bg-amber hover:text-ink hover:border-amber hover:-translate-y-0.5 hover:scale-110 hover:shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--amber)_60%,transparent)] transition-all duration-300">
+                    <Icon size={22} strokeWidth={1.8} />
                   </a>
                 ))}
               </div>
