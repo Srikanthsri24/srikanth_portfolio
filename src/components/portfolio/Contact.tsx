@@ -95,7 +95,7 @@ export function Contact() {
               <div className="flex flex-wrap gap-3">
                 {socials.map(({ Icon, label, href }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                     className="h-13 w-13 sm:h-14 sm:w-14 h-12 w-12 rounded-full border border-border flex items-center justify-center text-foreground/80 hover:bg-amber hover:text-ink hover:border-amber hover:-translate-y-0.5 hover:scale-110 hover:shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--amber)_60%,transparent)] transition-all duration-300">
+                     className="h-12 w-12 sm:h-14 sm:w-14 rounded-full border border-border flex items-center justify-center text-foreground/80 hover:bg-amber hover:text-ink hover:border-amber hover:-translate-y-0.5 hover:scale-110 hover:shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--amber)_60%,transparent)] transition-all duration-300">
                     <Icon size={22} strokeWidth={1.8} />
                   </a>
                 ))}
