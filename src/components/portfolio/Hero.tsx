@@ -1,31 +1,16 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Play, Sparkles, Star, Film } from "lucide-react";
 import portrait from "@/assets/hero-portrait.asset.json";
-import intro from "@/assets/hero-intro.asset.json";
 import { ROLES } from "@/data/portfolio";
-
-type Slide =
-  | { kind: "image"; url: string; label: string; caption: string }
-  | { kind: "video"; url: string; label: string; caption: string };
-
-const SLIDES: Slide[] = [
-  { kind: "image", url: portrait.url, label: "The Scholar", caption: "Knowledge in practice" },
-  { kind: "video", url: intro.url, label: "The Vision", caption: "Innovation in motion · VisionariesAI" },
-];
 
 const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge", "Design Systems"];
 const COMPANIES = ["VisionariesAI Labs", "Visionicx", "NEXT-GEN"];
 
 export function Hero({ onPlay }: { onPlay: () => void }) {
-  const [active, setActive] = useState(0);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (SLIDES[active].kind === "video") return; // wait for video to end
-    const t = setTimeout(() => setActive((i) => (i + 1) % SLIDES.length), 4500);
-    return () => clearTimeout(t);
-  }, [active]);
+  const handleVideoOpen = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onPlay();
+  };
 
   return (
     <section id="home" className="relative pt-24 sm:pt-28 pb-12 overflow-hidden">
@@ -91,7 +76,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
           </div>
         </motion.div>
 
-        {/* RIGHT: portrait / video card */}
+        {/* RIGHT: portrait card with video button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
@@ -99,63 +84,48 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
         >
           <div className="relative">
             <div className="absolute inset-0 border border-amber/50 translate-x-3 translate-y-3 rounded-sm pointer-events-none" />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm surface-elevated">
-              <AnimatePresence mode="wait">
-                {SLIDES[active].kind === "image" ? (
-                  <motion.img
-                    key={SLIDES[active].url}
-                    src={SLIDES[active].url}
-                    alt={`Srikanth Dubbaka — ${SLIDES[active].label}`}
-                    className="absolute inset-0 h-full w-full object-cover object-top"
-                    initial={{ opacity: 0, scale: 1.06 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.02 }}
-                    transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                    loading="eager"
-                  />
-                ) : (
-                  <motion.video
-                    key={SLIDES[active].url}
-                    ref={videoRef}
-                    src={SLIDES[active].url}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    autoPlay
-                    muted
-                    playsInline
-                    onEnded={() => setActive((i) => (i + 1) % SLIDES.length)}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                )}
-              </AnimatePresence>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm surface-elevated group">
+              <img
+                src={portrait.url}
+                alt="Srikanth Dubbaka — Founder & CEO, VisionariesAI Labs"
+                className="absolute inset-0 h-full w-full object-cover object-top"
+                loading="eager"
+              />
 
               {/* gradient */}
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent pointer-events-none" />
 
               <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">
-                N° {String(active + 1).padStart(2, "0")}
+                N° 01
               </span>
               <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">2026</span>
 
               <div className="absolute bottom-4 left-4 right-4 text-paper">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">{SLIDES[active].caption}</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">Knowledge in practice</p>
                 <p className="serif-italic text-3xl leading-none mt-2">Srikanth</p>
                 <p className="text-xs opacity-80 mt-1">VisionariesAI Labs</p>
               </div>
 
-              {/* progress dots */}
-              <div className="absolute bottom-4 right-4 flex gap-1.5">
-                {SLIDES.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActive(i)}
-                    aria-label={`Show slide ${i + 1}`}
-                    className={`h-1.5 rounded-full transition-all ${i === active ? "w-6 bg-amber" : "w-1.5 bg-paper/40 hover:bg-paper/70"}`}
-                  />
-                ))}
-              </div>
+              {/* Video button — right-click opens video */}
+              <button
+                onContextMenu={handleVideoOpen}
+                onClick={handleVideoOpen}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20
+                  flex items-center justify-center gap-2
+                  h-14 w-14 sm:h-16 sm:w-16 rounded-full
+                  bg-ink/60 backdrop-blur-md border border-paper/30
+                  text-paper hover:bg-amber hover:border-amber hover:text-ink hover:scale-110
+                  transition-all duration-300 shadow-lg hover:shadow-amber/40
+                  cursor-pointer"
+                aria-label="Open introductory video"
+                title="Right-click or click to watch intro video"
+              >
+                <Film size={22} className="sm:w-6 sm:h-6" />
+              </button>
+
+              {/* Subtle ring animation around video button */}
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
+                h-20 w-20 sm:h-24 sm:w-24 rounded-full border border-paper/20 animate-ping pointer-events-none" />
             </div>
           </div>
         </motion.div>
