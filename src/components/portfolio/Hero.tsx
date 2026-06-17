@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Play, Sparkles, Star, Film } from "lucide-react";
+import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
 import portrait from "@/assets/hero-portrait.asset.json";
 import { ROLES } from "@/data/portfolio";
 
@@ -7,10 +7,7 @@ const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge
 const COMPANIES = ["VisionariesAI Labs", "Visionicx", "NEXT-GEN"];
 
 export function Hero({ onPlay }: { onPlay: () => void }) {
-  const handleVideoOpen = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onPlay();
-  };
+
 
   return (
     <section id="home" className="relative pt-24 sm:pt-28 pb-12 overflow-hidden">
@@ -101,31 +98,11 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
               <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">2026</span>
 
               <div className="absolute bottom-4 left-4 right-4 text-paper">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">Knowledge in practice</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">CEO of VisionariesAI Labs</p>
                 <p className="serif-italic text-3xl leading-none mt-2">Srikanth</p>
-                <p className="text-xs opacity-80 mt-1">VisionariesAI Labs</p>
+                <p className="text-xs opacity-80 mt-1">Founder · VisionariesAI Labs</p>
               </div>
 
-              {/* Video button — right-click opens video */}
-              <button
-                onContextMenu={handleVideoOpen}
-                onClick={handleVideoOpen}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20
-                  flex items-center justify-center gap-2
-                  h-14 w-14 sm:h-16 sm:w-16 rounded-full
-                  bg-ink/60 backdrop-blur-md border border-paper/30
-                  text-paper hover:bg-amber hover:border-amber hover:text-ink hover:scale-110
-                  transition-all duration-300 shadow-lg hover:shadow-amber/40
-                  cursor-pointer"
-                aria-label="Open introductory video"
-                title="Right-click or click to watch intro video"
-              >
-                <Film size={22} className="sm:w-6 sm:h-6" />
-              </button>
-
-              {/* Subtle ring animation around video button */}
-              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
-                h-20 w-20 sm:h-24 sm:w-24 rounded-full border border-paper/20 animate-ping pointer-events-none" />
             </div>
           </div>
         </motion.div>
