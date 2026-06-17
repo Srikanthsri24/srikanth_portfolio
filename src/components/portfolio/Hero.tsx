@@ -14,7 +14,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
       {/* Editorial masthead bar */}
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-[0.3em] text-muted-foreground pb-5 border-b border-border">
-          <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse" /> Available for select projects</span>
+          <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse" /> Now accepting select collaborations · 2026</span>
           <span className="hidden md:inline">VisionariesAI Labs · Visionicx · NEXT-GEN</span>
           <span>Visakhapatnam, Andhra Pradesh, India</span>
         </div>
@@ -69,7 +69,7 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
                 <Star key={i} size={12} className="fill-amber text-amber" />
               ))}
             </div>
-            <span>Trusted by 30+ teams worldwide</span>
+            <span>Trusted by 50+ teams · 50+ projects shipped</span>
           </div>
         </motion.div>
 
@@ -89,18 +89,19 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
                 loading="eager"
               />
 
-              {/* gradient */}
-              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent pointer-events-none" />
+              {/* Fixed dark gradient (works in both themes) */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/60 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
 
-              <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">
+              <span className="absolute top-3 left-3 text-[10px] uppercase tracking-[0.3em] text-white/90">
                 N° 01
               </span>
-              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-paper/90 mix-blend-difference">2026</span>
+              <span className="absolute top-3 right-3 text-[10px] uppercase tracking-[0.3em] text-white/90">2026</span>
 
-              <div className="absolute bottom-4 left-4 right-4 text-paper">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-amber">CEO of VisionariesAI Labs</p>
-                <p className="serif-italic text-3xl leading-none mt-2">Srikanth</p>
-                <p className="text-xs opacity-80 mt-1">Founder · VisionariesAI Labs</p>
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-amber font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">CEO of VisionariesAI Labs</p>
+                <p className="serif-italic text-3xl leading-none mt-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Srikanth Dubbaka</p>
+                <p className="text-xs text-white/85 mt-1">Founder · VisionariesAI Labs</p>
               </div>
 
             </div>
@@ -112,9 +113,9 @@ export function Hero({ onPlay }: { onPlay: () => void }) {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 mt-14 sm:mt-20">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 py-8 border-t border-b border-border">
           {[
-            { k: "11+",  v: "Products in production" },
+            { k: "50+",  v: "Projects shipped" },
             { k: "5+",   v: "Years building AI" },
-            { k: "30+",  v: "Teams & institutions" },
+            { k: "50+",  v: "Teams & institutions" },
             { k: "100%", v: "On-time delivery" },
           ].map((s, i) => (
             <div key={s.v} className={i < 3 ? "sm:border-r sm:border-border sm:pr-6" : ""}>
