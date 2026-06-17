@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Play, Sparkles, Star, Film } from "lucide-react";
+import { ArrowUpRight, Play, Sparkles, Star } from "lucide-react";
 import portrait from "@/assets/hero-portrait.asset.json";
 import { ROLES } from "@/data/portfolio";
 
