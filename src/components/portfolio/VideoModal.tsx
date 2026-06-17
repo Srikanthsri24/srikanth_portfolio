@@ -14,17 +14,17 @@ export function VideoModal({ open, onClose }: { open: boolean; onClose: () => vo
           <motion.div
             initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl glass rounded-2xl p-6"
+            className="relative w-full max-w-md sm:max-w-lg glass rounded-2xl p-4 sm:p-6"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold">Introductory Video</h3>
+              <h3 className="text-base sm:text-xl font-semibold">Introductory Video</h3>
               <button onClick={onClose} className="p-2 rounded-full glass hover:bg-white/10" aria-label="Close">
                 <X size={18} />
               </button>
             </div>
-            <div className="aspect-[4/5] sm:aspect-video rounded-xl overflow-hidden bg-black/50 flex items-center justify-center border border-white/10">
+            <div className="rounded-xl overflow-hidden bg-black border border-white/10 flex items-center justify-center max-h-[80vh]">
               <video
-                className="w-full h-full object-cover"
+                className="w-full h-auto max-h-[75vh] object-contain"
                 src={intro.url}
                 controls
                 autoPlay
