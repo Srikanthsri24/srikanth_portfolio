@@ -7,10 +7,7 @@ const STACK = ["React", "TypeScript", "Python", "AI / ML", "IoT", "Cloud", "Edge
 const COMPANIES = ["VisionariesAI Labs", "Visionicx", "NEXT-GEN"];
 
 export function Hero({ onPlay }: { onPlay: () => void }) {
-  const handleVideoOpen = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onPlay();
-  };
+
 
   return (
     <section id="home" className="relative pt-24 sm:pt-28 pb-12 overflow-hidden">
