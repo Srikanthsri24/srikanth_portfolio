@@ -61,20 +61,20 @@ export function Projects() {
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10" />
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1">
                     {p.category.map((c) => (
-                      <span key={c} className="px-2 py-0.5 rounded-full bg-ink/60 backdrop-blur text-[10px] uppercase tracking-wider text-paper">
+                      <span key={c} className="px-2 py-0.5 rounded-full bg-black/70 backdrop-blur text-[10px] uppercase tracking-wider text-white">
                         {c}
                       </span>
                     ))}
                   </div>
-                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-amber text-ink text-[10px] uppercase tracking-wider font-semibold">
+                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-amber text-black text-[10px] uppercase tracking-wider font-semibold">
                     {p.status}
                   </span>
-                  <div className="absolute bottom-3 left-4 right-4 text-paper">
-                    <p className="text-[10px] uppercase tracking-[0.25em] text-amber">{p.tag}</p>
-                    <h3 className="mt-1 serif-display text-lg leading-tight">{p.name}</h3>
+                  <div className="absolute bottom-3 left-4 right-4 text-white">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-amber font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{p.tag}</p>
+                    <h3 className="mt-1 serif-display text-lg leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">{p.name}</h3>
                   </div>
                 </div>
 
