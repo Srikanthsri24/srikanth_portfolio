@@ -42,7 +42,7 @@ export const ACHIEVEMENTS = [
   { title: "AI CCTV Monitoring", period: "2023", org: "Smart surveillance across campuses" },
   { title: "Energy Monitoring Live", period: "2023", org: "Single & three-phase deployments" },
   { title: "Ask.VisionariesAI", period: "2024", org: "AI teaching & learning assistant" },
-  { title: "11+ Products Shipped", period: "2020 - Present", org: "From idea to production" },
+  { title: "50+ Products Delivered", period: "2020 - Present", org: "Developed, deployed & in production" },
 ];
 
 export const SERVICES = [
