@@ -1,12 +1,12 @@
-import { Mail, Phone, Linkedin, Github, Instagram, Youtube, ArrowUp, ArrowUpRight, MapPin } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, Instagram, Youtube, ArrowUpRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { NAV } from "@/data/portfolio";
 
 const SOCIALS = [
-  { Icon: Linkedin, href: "https://linkedin.com/in/srikanthdubbaka", label: "LinkedIn" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/srikanthdubbaka", label: "LinkedIn" },
   { Icon: Instagram, href: "https://www.instagram.com/visionariesai/", label: "Instagram" },
-  { Icon: Github, href: "https://github.com/srikanthdubbaka", label: "GitHub" },
-  { Icon: Youtube, href: "https://www.youtube.com/@visionariesai", label: "YouTube" },
+  { Icon: Github, href: "https://github.com/Srikanthsri24", label: "GitHub" },
+  { Icon: Youtube, href: "https://www.youtube.com/@VisionariesAILabspvtltd", label: "YouTube" },
 ];
 
 export function Footer() {
@@ -144,17 +144,11 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
           <p className="text-center sm:text-left">
-            © {year} Srikanth Dubbaka · Crafted with intent
+            © {year} Srikanth Dubbaka · VisionariesAI Labs
           </p>
-          <button
-            onClick={toTop}
-            className="group flex items-center gap-2 hover:text-amber transition-colors"
-          >
-            Back to top
-            <span className="h-7 w-7 rounded-full border border-border flex items-center justify-center group-hover:bg-amber group-hover:text-ink group-hover:border-amber group-hover:-translate-y-0.5 transition-all">
-              <ArrowUp size={11} />
-            </span>
-          </button>
+          <p className="text-center sm:text-right">
+            Crafted with intent · Visakhapatnam, India
+          </p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Linkedin, Github, Instagram, Facebook, Youtube, Send, CheckCircle2, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, Linkedin, Github, Instagram, Youtube, Send, CheckCircle2, ArrowUpRight } from "lucide-react";
 
 const EMAIL = "srikanth@visionariesai.com";
 const PHONE_1_DISPLAY = "+91 98490 72243";
@@ -38,11 +38,10 @@ export function Contact() {
   };
 
   const socials = [
-    { Icon: Linkedin,  label: "LinkedIn",  href: "https://linkedin.com/in/srikanthdubbaka" },
+    { Icon: Linkedin,  label: "LinkedIn",  href: "https://www.linkedin.com/in/srikanthdubbaka" },
     { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/visionariesai/" },
-    { Icon: Github,    label: "GitHub",    href: "https://github.com/srikanthdubbaka" },
-    { Icon: Youtube,   label: "YouTube",   href: "https://www.youtube.com/@visionariesai" },
-    { Icon: Facebook,  label: "Facebook",  href: "https://www.facebook.com/visionariesai" },
+    { Icon: Github,    label: "GitHub",    href: "https://github.com/Srikanthsri24" },
+    { Icon: Youtube,   label: "YouTube",   href: "https://www.youtube.com/@VisionariesAILabspvtltd" },
   ];
 
   const infoItems = [
