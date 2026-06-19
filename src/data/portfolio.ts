@@ -91,7 +91,7 @@ export const PRODUCTS: Product[] = [
     clients: "Schools & institutions",
     gradient: "from-sky-500 to-blue-700",
     category: ["AI", "EDU"],
-    image: u("1577896851231-70ef18881754"),
+    image: u("1588072432836-e10032774350"),
   },
   {
     id: 2,
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
     clients: "High-school learning",
     gradient: "from-violet-500 to-fuchsia-600",
     category: ["AI", "EDU"],
-    image: u("1532094349884-543bc11b234d"),
+    image: u("1581091226825-a6a2a5aee158"),
   },
   {
     id: 3,
@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     clients: "Managing devices daily",
     gradient: "from-green-500 to-teal-600",
     category: ["WEB", "IoT"],
-    image: u("1551288049-bebda4e38f71"),
+    image: u("1460925895917-afdab827c52f"),
   },
   {
     id: 8,
