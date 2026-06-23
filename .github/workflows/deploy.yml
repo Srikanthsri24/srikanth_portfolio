@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -37,14 +37,9 @@ jobs:
 
       - name: Check build output
         run: |
-          echo "Root files:"
-          ls -la
-
           echo "Dist files:"
           ls -la dist
-
-          echo "Checking index.html:"
-          test -f dist/index.html && echo "index.html found in dist"
+          test -f dist/index.html && echo "index.html found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -54,5 +49,15 @@ jobs:
         with:
           path: ./dist
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

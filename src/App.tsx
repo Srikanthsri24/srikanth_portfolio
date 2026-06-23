@@ -21,6 +21,7 @@ export default function App() {
     <ThemeProvider>
       <Preloader />
       <Navbar />
+
       <main>
         <Hero onPlay={() => setShowVideoModal(true)} />
         <Services />
@@ -31,9 +32,14 @@ export default function App() {
         <Team />
         <Contact />
       </main>
+
       <Footer />
       <ScrollTop />
-      <VideoModal open={showVideoModal} onOpenChange={setShowVideoModal} />
+
+      <VideoModal
+        open={showVideoModal}
+        onClose={() => setShowVideoModal(false)}
+      />
     </ThemeProvider>
   );
 }
