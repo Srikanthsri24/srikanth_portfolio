@@ -87,7 +87,6 @@
 #       - name: Deploy to GitHub Pages
 #         id: deployment
 #         uses: actions/deploy-pages@v5
-
 name: Deploy to GitHub Pages
 
 on:
@@ -109,6 +108,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -116,7 +119,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -126,9 +129,6 @@ jobs:
 
       - name: Check build output
         run: |
-          echo "Root files:"
-          ls -la
-
           echo "Dist files:"
           ls -la dist || true
 
@@ -155,4 +155,5 @@ jobs:
           path: dist
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
