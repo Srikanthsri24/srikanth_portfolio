@@ -27,20 +27,24 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build project
         run: npm run build
+        env:
+          GITHUB_PAGES: "true"
 
       - name: Check build output
         run: |
           echo "Root files:"
           ls -la
+
           echo "Dist files:"
-          ls -la dist || true
-          echo "Dist client files:"
-          ls -la dist/client || true
+          ls -la dist
+
+          echo "Checking index.html:"
+          test -f dist/index.html && echo "index.html found in dist"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -48,7 +52,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/client
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
