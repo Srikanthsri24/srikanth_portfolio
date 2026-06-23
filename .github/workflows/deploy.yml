@@ -38,10 +38,18 @@ jobs:
           GITHUB_PAGES: "true"
           NITRO_PRESET: github_pages
 
-      - name: Create GitHub Pages fallback
+      - name: Debug build output
+        run: |
+          echo "Root files:"
+          ls -la
+          echo ".output files:"
+          find .output -maxdepth 4 -type f | head -100 || true
+
+      - name: Prepare GitHub Pages files
         run: |
           test -f .output/public/index.html
           cp .output/public/index.html .output/public/404.html
+          touch .output/public/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

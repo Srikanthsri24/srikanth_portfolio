@@ -15,9 +15,6 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
-
-    // Required for GitHub Pages sub-path:
-    // https://srikanthsri24.github.io/srikanth_portfolio/
     basepath,
   });
 
