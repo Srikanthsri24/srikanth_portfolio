@@ -47,14 +47,10 @@ jobs:
           echo "Checking Vite transformed main.tsx..."
           if grep -q "/src/main.tsx" dist/index.html; then
             echo "ERROR: dist/index.html still contains /src/main.tsx"
-            echo "This means Vite build is not transforming index.html."
             exit 1
           else
             echo "OK: Vite build transformed index.html correctly."
           fi
-
-          echo "Checking CNAME..."
-          test -f dist/CNAME && cat dist/CNAME || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
