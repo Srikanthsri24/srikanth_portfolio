@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: github-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -32,14 +32,29 @@ jobs:
 
       - name: Build project
         run: npm run build
-        env:
-          GITHUB_PAGES: "true"
 
-      - name: Check build output
+      - name: Verify Vite build output
         run: |
           echo "Dist files:"
           ls -la dist
-          test -f dist/index.html && echo "index.html found"
+
+          echo "Dist index.html:"
+          cat dist/index.html
+
+          echo "Checking index.html exists..."
+          test -f dist/index.html
+
+          echo "Checking Vite transformed main.tsx..."
+          if grep -q "/src/main.tsx" dist/index.html; then
+            echo "ERROR: dist/index.html still contains /src/main.tsx"
+            echo "This means Vite build is not transforming index.html."
+            exit 1
+          else
+            echo "OK: Vite build transformed index.html correctly."
+          fi
+
+          echo "Checking CNAME..."
+          test -f dist/CNAME && cat dist/CNAME || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -47,7 +62,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
   deploy:
     needs: build
