@@ -42,19 +42,38 @@ jobs:
         run: |
           echo "Root files:"
           ls -la
-          echo ".output files:"
-          find .output -maxdepth 4 -type f | head -100 || true
+          echo ".output directory structure:"
+          find .output -type f 2>/dev/null | head -50 || echo "No .output directory found"
+          echo ""
+          echo "Looking for dist directory:"
+          ls -la dist 2>/dev/null || echo "No dist directory found"
 
       - name: Prepare GitHub Pages files
         run: |
-          test -f .output/public/index.html
-          cp .output/public/index.html .output/public/404.html
-          touch .output/public/.nojekyll
+          # Check if .output/public exists, if not check for dist
+          if [ -d ".output/public" ]; then
+            OUTPUT_DIR=".output/public"
+          elif [ -d "dist" ]; then
+            OUTPUT_DIR="dist"
+          else
+            echo "ERROR: No build output directory found!"
+            ls -la
+            exit 1
+          fi
+          
+          echo "Using output directory: $OUTPUT_DIR"
+          test -f "$OUTPUT_DIR/index.html" || { echo "ERROR: index.html not found in $OUTPUT_DIR"; ls -la "$OUTPUT_DIR"; exit 1; }
+          
+          cp "$OUTPUT_DIR/index.html" "$OUTPUT_DIR/404.html"
+          touch "$OUTPUT_DIR/.nojekyll"
+          
+          # Save the output dir for next step
+          echo "OUTPUT_DIR=$OUTPUT_DIR" >> $GITHUB_ENV
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: ${{ env.OUTPUT_DIR }}
 
   deploy:
     environment:

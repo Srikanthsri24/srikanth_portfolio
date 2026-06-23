@@ -10,12 +10,12 @@ export default defineConfig({
     server: { entry: "server" },
 
     // Required for GitHub Pages static hosting
-    prerender: {
-      enabled: isGitHubPages,
-      routes: ["/"],
+    prerender: isGitHubPages ? {
+      enabled: true,
+      routes: ["/", "/404"],
       crawlLinks: true,
-      failOnError: true,
-    },
+      failOnError: false,
+    } : undefined,
   },
 
   vite: {
