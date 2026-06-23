@@ -1,98 +1,8 @@
-# name: Deploy to GitHub Pages
-
-# on:
-#   push:
-#     branches: ["main"]
-#   workflow_dispatch:
-
-# permissions:
-#   contents: read
-#   pages: write
-#   id-token: write
-
-# concurrency:
-#   group: github-pages
-#   cancel-in-progress: true
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v4
-
-#       - name: Setup Node
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 22
-#           cache: npm
-
-#       - name: Install dependencies
-#         run: npm ci
-
-#       - name: Build project
-#         run: npm run build
-
-#       - name: Verify Vite build output
-#         run: |
-#           echo "Root files:"
-#           ls -la
-
-#           echo "Dist files:"
-#           ls -la dist
-
-#           if [ ! -f "dist/index.html" ]; then
-#             echo "ERROR: dist/index.html not found"
-#             find dist -maxdepth 4 -type f || true
-#             exit 1
-#           fi
-
-#           if grep -q "/src/main.tsx" dist/index.html; then
-#             echo "ERROR: dist/index.html still contains /src/main.tsx"
-#             exit 1
-#           fi
-
-#           echo "OK: dist/index.html found and transformed correctly."
-
-#       - name: Add SPA fallback
-#         run: |
-#           cp dist/index.html dist/404.html
-
-#       - name: Add custom domain
-#         run: |
-#           echo "srikanthsri.com" > dist/CNAME
-
-#       - name: Disable Jekyll
-#         run: |
-#           touch dist/.nojekyll
-
-#       - name: Setup Pages
-#         uses: actions/configure-pages@v5
-
-#       - name: Upload Pages artifact
-#         uses: actions/upload-pages-artifact@v3
-#         with:
-#           path: dist
-
-#   deploy:
-#     needs: build
-#     runs-on: ubuntu-latest
-
-#     environment:
-#       name: github-pages
-#       url: ${{ steps.deployment.outputs.page_url }}
-
-#     steps:
-#       - name: Deploy to GitHub Pages
-#         id: deployment
-#         uses: actions/deploy-pages@v5
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -101,25 +11,22 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -127,33 +34,55 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Check build output
+      - name: Verify build output
         run: |
           echo "Dist files:"
-          ls -la dist || true
+          ls -la dist
+
+          echo "Built index.html:"
+          cat dist/index.html
 
           if [ ! -f "dist/index.html" ]; then
             echo "ERROR: dist/index.html not found"
-            find dist -maxdepth 4 -type f || true
             exit 1
           fi
 
-          echo "OK: dist/index.html found"
+          if grep -q "/src/main.tsx" dist/index.html; then
+            echo "ERROR: Build failed. dist/index.html still contains /src/main.tsx"
+            exit 1
+          fi
 
-      - name: Add custom domain CNAME
-        run: echo "srikanthsri.com" > dist/CNAME
+          echo "OK: Vite build is correct"
 
       - name: Add SPA fallback
-        run: cp dist/index.html dist/404.html
+        run: |
+          cp dist/index.html dist/404.html
+
+      - name: Add custom domain
+        run: |
+          echo "srikanthsri.com" > dist/CNAME
+
+      - name: Disable Jekyll
+        run: |
+          touch dist/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload GitHub Pages artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
