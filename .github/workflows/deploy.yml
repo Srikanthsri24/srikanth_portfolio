@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -33,24 +34,36 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Verify Vite build output
+      - name: Verify TanStack Start client build
         run: |
+          echo "Root files:"
+          ls -la
+
           echo "Dist files:"
-          ls -la dist
+          ls -la dist || true
 
-          echo "Dist index.html:"
-          cat dist/index.html
+          echo "Client files:"
+          ls -la dist/client || true
 
-          echo "Checking index.html exists..."
-          test -f dist/index.html
-
-          echo "Checking Vite transformed main.tsx..."
-          if grep -q "/src/main.tsx" dist/index.html; then
-            echo "ERROR: dist/index.html still contains /src/main.tsx"
+          if [ ! -f "dist/client/index.html" ]; then
+            echo "ERROR: dist/client/index.html not found"
+            find dist -maxdepth 4 -type f || true
             exit 1
-          else
-            echo "OK: Vite build transformed index.html correctly."
           fi
+
+          echo "OK: dist/client/index.html found"
+
+      - name: Add GitHub Pages SPA fallback
+        run: |
+          cp dist/client/index.html dist/client/404.html
+
+      - name: Add custom domain
+        run: |
+          echo "srikanthsri.com" > dist/client/CNAME
+
+      - name: Disable Jekyll
+        run: |
+          touch dist/client/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -58,7 +71,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
 
   deploy:
     needs: build
