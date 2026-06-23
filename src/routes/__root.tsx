@@ -10,7 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+
 
 function NotFoundComponent() {
   return (
@@ -38,7 +38,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    // Error logging can be added here if needed
   }, [error]);
 
   return (
@@ -77,18 +77,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
+      { title: "Srikanth Dubbaka | Portfolio" },
       { name: "description", content: "A modern ReactJS portfolio showcasing Srikanth Dubbaka's expertise as CEO of VisionariesAI Labs." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
+      { name: "author", content: "Srikanth Dubbaka" },
+      { property: "og:title", content: "Srikanth Dubbaka | Portfolio" },
       { property: "og:description", content: "A modern ReactJS portfolio showcasing Srikanth Dubbaka's expertise as CEO of VisionariesAI Labs." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Srikanth Dubbaka | Portfolio" },
       { name: "twitter:description", content: "A modern ReactJS portfolio showcasing Srikanth Dubbaka's expertise as CEO of VisionariesAI Labs." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d7f67d40-3a08-40f5-b9fa-a032704bb1f3/id-preview-d71b80f7--902c7a2c-c2d9-4626-b3f9-1dd21891f56d.lovable.app-1780636966193.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d7f67d40-3a08-40f5-b9fa-a032704bb1f3/id-preview-d71b80f7--902c7a2c-c2d9-4626-b3f9-1dd21891f56d.lovable.app-1780636966193.png" },
     ],
     links: [
       {
