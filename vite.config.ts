@@ -1,31 +1,11 @@
-// @lovable.dev/vite-tanstack-config already includes plugins.
-// Do NOT add react/tailwind/tanstack plugins manually.
-
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 export default defineConfig({
-  tanstackStart: {
-    server: { entry: "server" },
-
-    prerender: {
-      enabled: isGitHubPages,
-      autoSubfolderIndex: true,
-      autoStaticPathsDiscovery: true,
-      crawlLinks: true,
-      failOnError: true,
-    },
-
-    // Important: this tells TanStack Start to prerender home page
-    pages: [
-      {
-        path: "/",
-      },
-    ],
-  },
-
-  vite: {
-    base: isGitHubPages ? "/srikanth_portfolio/" : "/",
-  },
+  plugins: [react(), tailwindcss(), tsconfigPaths()],
+  base: isGitHubPages ? "/srikanth_portfolio/" : "/",
 });
