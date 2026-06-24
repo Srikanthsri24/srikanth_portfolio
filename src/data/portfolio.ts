@@ -226,10 +226,18 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const TEAM = [
-  { role: "AI Developer", name: "Aarav K.", initials: "AK" },
-  { role: "Full Stack Developer", name: "Meera S.", initials: "MS" },
-  { role: "UI/UX Designer", name: "Rohan V.", initials: "RV" },
-  { role: "QA & Deployment Engineer", name: "Priya N.", initials: "PN" },
+  { role: "AI Team", type: "Intelligence", icon: "ai" },
+  { role: "Full Stack Team", type: "Web Apps", icon: "fullstack" },
+  { role: "Mobile Team", type: "Android & iOS", icon: "mobile" },
+  { role: "UI/UX Team", type: "Design", icon: "uiux" },
+  { role: "Backend Team", type: "APIs", icon: "backend" },
+  { role: "Cloud Team", type: "Deployment", icon: "cloud" },
+  { role: "IoT Team", type: "Devices", icon: "iot" },
+  { role: "QA Team", type: "Testing", icon: "qa" },
+  { role: "Marketing Team", type: "Growth", icon: "marketing" },
+  { role: "Support Team", type: "Client Care", icon: "support" },
+  { role: "Database Team", type: "Data", icon: "database" },
+  { role: "Product Team", type: "Strategy", icon: "product" },
 ];
 
 export const TESTIMONIALS = [
