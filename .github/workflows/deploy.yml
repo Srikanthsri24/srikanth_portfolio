@@ -34,26 +34,25 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Verify Vite build output
+      - name: Verify build output
         run: |
-          echo "Root files:"
-          ls -la
-
           echo "Dist files:"
           ls -la dist
 
+          echo "Built index.html:"
+          cat dist/index.html
+
           if [ ! -f "dist/index.html" ]; then
             echo "ERROR: dist/index.html not found"
-            find dist -maxdepth 4 -type f || true
             exit 1
           fi
 
           if grep -q "/src/main.tsx" dist/index.html; then
-            echo "ERROR: dist/index.html still contains /src/main.tsx"
+            echo "ERROR: Build failed. dist/index.html still contains /src/main.tsx"
             exit 1
           fi
 
-          echo "OK: dist/index.html found and transformed correctly."
+          echo "OK: Vite build is correct"
 
       - name: Add SPA fallback
         run: |
